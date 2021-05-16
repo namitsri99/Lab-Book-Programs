@@ -1,0 +1,20 @@
+CREATE TABLE book
+(
+isbn NUMBER(19) CONSTRAINT book_isbn_pk PRIMARY KEY,
+title VARCHAR2(25) CONSTRAINT book_title_nn NOT NULL,
+price NUMBER(19) CONSTRAINT book_price_nn NOT NULL,
+authorId NUMBER(19) CONSTRAINT book_authorId_fk REFERENCES author(authorId)
+);
+
+INSERT INTO book VALUES  (1,'Core Java',4000,1);
+ INSERT INTO book VALUES (2,'JPA',1000,2);
+ INSERT INTO book VALUES (3,'Spring',2000,1);
+
+CREATE TABLE author
+(
+authorId NUMBER(19) CONSTRAINT author_authorId_pk PRIMARY KEY,
+name VARCHAR2(25) CONSTRAINT author_name_nn NOT NULL
+);
+
+ INSERT INTO author VALUES(1,'shubh');
+ INSERT INTO author VALUES(2,'sameer');

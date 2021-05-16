@@ -1,0 +1,14 @@
+CREATE TABLE greet
+(
+messageid NUMBER(5) PRIMARY KEY,
+message VARCHAR2(25)
+);
+
+CREATE TABLE author
+(
+authorId number(20) CONSTRAINT author_authorId_pk PRIMARY KEY,
+firstName VARCHAR2(30) CONSTRAINT author_fname_nn NOT NULL,
+middleName VARCHAR2(30) CONSTRAINT author_Mname_nn NOT NULL,
+lastName VARCHAR2(30) CONSTRAINT author_lname_nn NOT NULL,
+phoneNo VARCHAR2(30) CONSTRAINT author_number_un UNIQUE
+);
