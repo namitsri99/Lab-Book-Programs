@@ -1,0 +1,93 @@
+Lab:
+
+1-create table department_master (dept_code number(2),dept_name varchar2(50),primary key(dept_code));
+create table designation_master(design_code number(3),design_name varchar2(50), primary key(design_code));
+create table emp(empno number(4),ename varchar2(10),job varchar2(9),mgr number(4),hiredate date,sal number(7,2),comm number(7,2),deptno number(2), primary key(empno), foreign key(deptno) references department_master(dept_code));
+
+ create table student_master(student_code number(6),student_name varchar2(50),dept_code number(2),student_dob date,student_address varchar2(240), primary key(student_code), foreign key(dept_code) references department_master(dept_code));
+
+create table student_marks(student_code number(6),student_year number not null,subject1 number(3),subject2 number(3),subject3 number(3),primary key(student_code,student_year),foreign key (student_code) references student_master(student_code));
+
+create table staff_master(staff_code number(8),staff_name varchar2(50),desgin_code number,dept_code number,hiredate date, staff_dob date,staff_address varchar2(240),mgr_code number(8),staff_sal number(10,2),primary key(staff_code),foreign key(design_code)references designation master(design_code),
+foreign key(
+
+create table book_master(
+book_code number(10),
+book_name varchar2(50) not null,
+book_pub_year number,
+book_pub_author varchar2(50),
+primary key(book_code));
+
+create table Book_Transactions(
+book_code number,
+student_code number,
+staff_code number,
+book_issue_date date not null,
+book_expected_return_date date not null,
+book_actual_return_date date,
+primary key(book_code,book_issue_date),
+foreign key(book_code) references book_master(book_code),
+foreign key(student_code) references student_master (student_code),
+foreign key(staff_code) references staff_master (staff_code));
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+insert into department_master values(10,'IT');
+ insert into department_master values(20,'HR');
+ insert into department_master values(30,'Finance'); 
+
+ 
+
+ insert into designation_master values(100,'Project Manager');
+ insert into designation_master values(200,'Team Lead');
+ insert into designation_master values(300,'Developer');
+
+ 
+
+ insert into emp values(1000,'Rithesh',null,null,'10-Dec-2012',50000,null,30);
+ insert into emp values(2000,'Sachin',null,null,'10-Dec-2020',50000,null,20);
+ insert into emp(empno,ename,hiredate,sal,deptno) values (3000,'Ram','25-Jan-2015',65000,30);
+------------------------------------------------------------------------------------------------------------------------
+
+ 1-Select  Staff_Name as Name, Staff_code as Code from Staff_Master where HireDate<'01-Jan-2003' AND 
+Staff_sal BETWEEN 12000 AND 25000;
+
+2-Select Staff_code,Staff_Name,Dept_code where (Datediff(year,HireDate,GETDATE()) >18;
+
+3-Select * from Staff_Master  where Mgr_code IS NULL;
+
+4-Select * from Book_Master where Book_pub_year BETWEEN 2001 AND 2004 AND Book_Name LIKE '%[&]%';
+
+5-Select Staff_Name from Staff_Master where Staff_Name LIKE '%_%';
+
+2.1----------------------------------------------------------------------------
+
+1-SELECT  Staff_Name,LPAD(Staff_Sal, 15, '$') Staff_Sal
+FROM Staff_Master;
+
+2-SELECT Student_name,TO_CHAR(Student_dob,'MONTH DD YYYY') AS Student_dob FROM Student_Master WHERE TO_CHAR(Student_dob,'DAY') LIKE  ('%SATURDAY5')  OR   TO_CHAR(Student_dob,'DAY') LIKE  ('%SUNDAY5') ;
+
+3-SELECT STAFF_NAME,ROUND(MONTHS_BETWEEN(SYSDATE,HIREDATE)) AS MONTHS_WORKED FROM STAFFMASTER;
+
+4- SELECT * FROM STAFFMASTER WHERE TO_CHAR(HIREDATE,'DD') BETWEEN 1 AND 15 AND TO_CHAR(HIREDATE,'MONTH') LIKE '%DECEMBER%' ;
+
+5-SELECT Staff_name,Staff_sal 
+	CASE 
+	WHEN Staff_sal  >=50000 THEN 'A'  
+	WHEN Staff_sal   >25000 AND  Staff_sal <50000 THEN 'B' 
+	WHEN Staff_sal   >10000 AND  Staff_sal <25000 THEN 'C' 
+	ELSE 'D' 
+
+
+	END CASE
+	FROM STAFFMASTER;
+
+6-SQL>SELECT Staff_name,TO_CHAR(HIREDATE,'DD MONTH YYYY') AS HIRE_DATE,TO_CHAR(HIREDATE,'DAY')AS DAY FROM STAFFMASTER ORDER BY TO_CHAR(HIREDATE,'DAY') DESC;
+
+7-SELECT INSTR('Mississippi','i',2,3) FROM DUAL;
+
+8-SELECT TO_CHAR(NEXT_DAY(SYSDATE,'FRIDAY'),'DD MONTH ,YYYY')
+	AS DAY FROM DUAL WHERE NEXT_DAY(SYSDATE,'FRIDAY')<LAST_DAY(SYSDATE) ;
+
+9-SELECT  Student_Code,Student-name,Dept_Code 
+   DECODE(Dept_Code,10,'Electricals',20,'Electronics','Others')
+  FROM Student_Master;
